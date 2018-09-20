@@ -12,6 +12,7 @@ import { FIREBASE_CONFIG } from './app.firebase.config';
 import { LoginPage } from '../pages/login/login';
 
 
+
 @NgModule({
   declarations: [
     MyApp,

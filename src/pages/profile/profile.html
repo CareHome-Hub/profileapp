@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>ProfileCreate Your profile</ion-title>
+    <ion-title>Create your profile</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -26,5 +26,5 @@
     <ion-label floating>Job Title</ion-label>
     <ion-input [(ngModel)]="profile.jobtitle"></ion-input>
   </ion-item>
-  <button ion-button block (click)="createProfile()">Create Profile</button>
+  <button ion-button block clear (click)="createProfile()">Create Profile</button>
 </ion-content>
