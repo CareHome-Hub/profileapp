@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth'
 
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { Profile } from '../../models/profile';
 
@@ -20,7 +20,7 @@ import { Profile } from '../../models/profile';
 })
 export class HomePage {
 
-  profileData: Observable<Profile>
+  profileData: AngularFireObject<Profile>
 
   constructor(private afAth: AngularFireAuth, private afDatabase:AngularFireDatabase, public toast: ToastController,
     public navCtrl: NavController, public navParams: NavParams) {
@@ -33,7 +33,7 @@ export class HomePage {
           message: `Welcome to your profile, ${data.email}`,
           duration: 4000
         }).present();
-        this.profileData = this.afDatabase.object(`profile/${user.uid}`)
+        this.profileData = this.afDatabase.object(`profile/${data.uid}`)
       }
       else {
         this.toast.create({
