@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth'
 
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs/Observable';
+import { Profile } from '../../models/profile';
+
 /**
  * Generated class for the HomePage page.
  *
@@ -16,7 +20,9 @@ import { AngularFireAuth } from 'angularfire2/auth'
 })
 export class HomePage {
 
-  constructor(private afAth: AngularFireAuth, public toast: ToastController,
+  profileData: Observable<Profile>
+
+  constructor(private afAth: AngularFireAuth, private afDatabase:AngularFireDatabase, public toast: ToastController,
     public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -24,7 +30,7 @@ export class HomePage {
     this.afAth.authState.subscribe(data => {
       if (data && data.email && data.uid) {
         this.toast.create({
-          message: 'Welcome ${this.user.email} to your profile',
+          message: `Welcome to your profile, ${data.email}`,
           duration: 4000
         }).present();
       }
