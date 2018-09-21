@@ -5,29 +5,40 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Profile } from '../../models/profile';
 
-
-import { Profile } from "../../models/profile";
 import { ProfileListService } from "../../services/profile-list/profile-list.service";
+import { map } from 'rxjs/operators/map';
+
 
 @IonicPage()
-@core.Component({
+@Component({
   selector: "page-home",
   templateUrl: "home.html"
 })
 export class HomePage {
-  profileList$: Observable<Profile[]>;
 
-  constructor(
-    private profile: ProfileListService,
-    private afAth: AngularFireAuth,
-    public toast: ToastController,
-    public navCtrl: NavController,
-    public navParams: NavParams
-  ) {this.profileList$ = this.profile
+  public profileList$: Observable<Profile[]>;
+
+  constructor(public profile: ProfileListService, private afAth: AngularFireAuth, public toast: ToastController, public navCtrl: NavController, public navParams: NavParams
+  )  {
+  }
+
+  ngOnInit() {
+    this.profileList$ = this.profile
     .getProfileList()
-    .valueChanges()}
+    .snapshotChanges()
+    .pipe(
+        map(items => { // this needs to be imported with: import { map } from 'rxjs/operators';
+        return items.map(a => {
+          const data = a.payload.val();
+          const key = a.payload.key;
+          return {key, ...data};
+        });
+    }));
 
-  ionViewDidLoad() {
+  }
+
+
+  ionViewWillLoad() {
     this.afAth.authState.subscribe(data => {
       if (data && data.email && data.uid)
       {
@@ -37,9 +48,6 @@ export class HomePage {
             duration: 4000
           })
           .present();
-
-
-
       } else {
         this.toast
           .create({
@@ -51,3 +59,4 @@ export class HomePage {
     });
   }
 }
+
