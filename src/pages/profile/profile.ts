@@ -18,7 +18,12 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class ProfilePage {
 
-  profile = {} as Profile;
+  profile: Profile = {
+    name: '',
+    industry: '',
+    jobtitle: '',
+
+  }
 
   constructor(private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase,
     public navCtrl: NavController, public navParams: NavParams) {

@@ -1,5 +1,6 @@
 export interface Profile {
-    name: string;
-    industry: string;
-    jobtitle: string;
+  key?: string;
+  name: string;
+  industry: string;
+  jobtitle: string;
 }

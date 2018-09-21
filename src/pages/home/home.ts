@@ -1,46 +1,55 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth'
+import * as core from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ToastController
+} from "ionic-angular";
+import { AngularFireAuth } from "angularfire2/auth";
+import { Observable } from "rxjs/Observable";
 
-import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable } from 'rxjs/Observable';
-import { Profile } from '../../models/profile';
-
-/**
- * Generated class for the HomePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Profile } from "../../models/profile";
+import { ProfileListService } from "../../services/profile-list/profile-list.service";
 
 @IonicPage()
-@Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
+@core.Component({
+  selector: "page-home",
+  templateUrl: "home.html"
 })
 export class HomePage {
+  profileList$: Observable<Profile[]>;
 
-  profileData: Observable<Profile>
-
-  constructor(private afAth: AngularFireAuth, private afDatabase:AngularFireDatabase, public toast: ToastController,
-    public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    private profile: ProfileListService,
+    private afAth: AngularFireAuth,
+    public toast: ToastController,
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {this.profileList$ = this.profile
+    .getProfileList()
+    .valueChanges()}
 
   ionViewDidLoad() {
     this.afAth.authState.subscribe(data => {
-      if (data && data.email && data.uid) {
-        this.toast.create({
-          message: `Welcome to your profile, ${data.email}`,
-          duration: 4000
-        }).present();
+      if (data && data.email && data.uid)
+      {
+        this.toast
+          .create({
+            message: `Welcome to your profile  ${data.email}`,
+            duration: 4000
+          })
+          .present();
+
+
+
+      } else {
+        this.toast
+          .create({
+            message: "You are not authenticated",
+            duration: 4000
+          })
+          .present();
       }
-      else {
-        this.toast.create({
-          message: 'You are not authenticated',
-          duration: 4000
-        }).present();
-      }
-    }
-    );
+    });
   }
 }

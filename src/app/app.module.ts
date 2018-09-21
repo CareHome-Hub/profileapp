@@ -13,6 +13,7 @@ import { MyApp } from './app.component';
 // import { HomePage } from '../pages/home/home';
 import { FIREBASE_CONFIG } from './app.firebase.config';
 import { LoginPage } from '../pages/login/login';
+import { ProfileListService } from '../services/profile-list/profile-list.service';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { LoginPage } from '../pages/login/login';
     StatusBar,
     SplashScreen,
     AngularFireDatabase,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ProfileListService
   ]
 })
 export class AppModule {}
