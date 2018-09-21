@@ -1,12 +1,10 @@
-import * as core from "@angular/core";
-import {
-  IonicPage,
-  NavController,
-  NavParams,
-  ToastController
-} from "ionic-angular";
-import { AngularFireAuth } from "angularfire2/auth";
-import { Observable } from "rxjs/Observable";
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { Profile } from '../../models/profile';
+
 
 import { Profile } from "../../models/profile";
 import { ProfileListService } from "../../services/profile-list/profile-list.service";

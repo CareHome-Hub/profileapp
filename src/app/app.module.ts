@@ -10,10 +10,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 import { MyApp } from './app.component';
-// import { HomePage } from '../pages/home/home';
 import { FIREBASE_CONFIG } from './app.firebase.config';
 import { LoginPage } from '../pages/login/login';
 import { ProfileListService } from '../services/profile-list/profile-list.service';
+
 
 
 @NgModule({
