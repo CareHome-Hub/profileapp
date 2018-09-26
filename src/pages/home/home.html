@@ -17,12 +17,13 @@
 <ion-content padding>
 
 <ion-list>
-<ion-list-header>Your details</ion-list-header>
+<ion-list-header></ion-list-header>
 <ion-item *ngFor="let profile of profilelist$ | async">
 {{profile.name}}
 {{profile.industry}}
 </ion-item>
-
 </ion-list>
 
+
+<button ion-button clear block (click)='campaign()'>Create campaign</button>
 </ion-content>

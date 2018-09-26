@@ -5,7 +5,7 @@ import { Profile } from "../../models/profile";
 @Injectable()
 export class ProfileListService {
 
-    private profileListRef = this.db.list<Profile>('profile-list');
+  public profileListRef = this.db.list<Profile>('profile');
 
   constructor(private db: AngularFireDatabase){
 
